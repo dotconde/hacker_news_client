@@ -2,10 +2,11 @@ import React from 'react';
 import {Component, useState, useEffect} from 'react';
 
 const App = () => {
-  // State
+  // States
   const [news, setNews] = useState([]);
   const [searchQuery,setSearchQuery] = useState('react');
   const [url, setUrl] = useState('http://hn.algolia.com/api/v1/search?query=react');
+  
   // Fetch News from Hacker News API
   const fetchNews = () => {
     fetch(url)
