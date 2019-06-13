@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Component, useState, useEffect} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => {
+  // State
+  const [news, setNews] = useState([])
+  // Fetch News from Hacker News API
+  const fetchNews = () => {
+    fetch('http://hn.algolia.com/api/v1/search?query=react')
+    .then(result => result.json())
+    .then(data => setNews(data.hits))
+    .catch(error => console.log(error));
+  };
+
+  useEffect(()=>{
+    fetchNews()
+  })
+
+  return(
+    <div>
+      <b> Trending News About React </b>
+      {news.map((n,i) => (
+        <div>
+        <p key={i}>{i+1}) {n.title}</p>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default App;
